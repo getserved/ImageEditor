@@ -170,7 +170,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .imageEditor{
+  width: 100%;
   height: 100%;
+  min-width: 300px;
 }
 .container{
   max-width: pxToRem(600);
@@ -409,6 +411,12 @@ export default {
   70% {
     -webkit-transform: scale(1);
     transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .info{
+    max-height: 25%;
   }
 }
 </style>

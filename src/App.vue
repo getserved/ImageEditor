@@ -11,6 +11,14 @@ export default {
   name: 'App',
   components: {
     imageEditor: ImageEditor
+  },
+  mounted: function () {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
   }
 }
 </script>
@@ -51,14 +59,16 @@ html, #app{
   overflow:hidden;
   font-size: 16px;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   font-family: 'Graphik';
 }
 body {
   height: 100%;
 }
 
-@media only screen and (max-width: 374px) {
+@media only screen and (max-width: 376px) {
   html, #app{
     font-size: 12px;
   }
