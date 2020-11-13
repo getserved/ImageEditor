@@ -234,11 +234,7 @@ export default {
      z-index: -1;
   }
 
-  .profile-container{
-    animation: heartBeat 1.3s ease-in;
-  }
-
-  .profile {
+  .profile-container {
     width: pxToRem(64);
     height: pxToRem(64);
     position: absolute;
@@ -248,6 +244,10 @@ export default {
     border: pxToRem(5) solid #fff;
     border-radius: 50%;
     overflow: hidden;
+
+    .profile{
+      animation: heartBeat 1.3s ease-in;
+    }
 
     img{
       width: 100%;
