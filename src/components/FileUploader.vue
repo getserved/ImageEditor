@@ -15,8 +15,8 @@
         </div>
       </div>
     </div>
-    <input class="input" type="file" @change="onFileChange"/>
-    <bubble ref="errors" bubbleClass='bubble-bottom-left' class='errors'></bubble>
+    <input class="input" type="file" @change="onFileChange" @click="removeErrors"/>
+    <bubble ref="errors" bubbleClass='bubble-bottom-left' :text="getErrors" class='errors'></bubble>
   </label>
 </template>
 
@@ -32,18 +32,24 @@ export default {
     bubble: Bubble
   },
   computed: {
-
+    getErrors () {
+      return this.$store.getters.getErrors;
+    }
   },
   methods: {
+    removeErrors: function (event) {
+      const errors = this.$refs.errors;
+      errors.$el.classList.remove('bubbleUp');
+    },
     onFileChange: function (event) {
       const files = event.target.files;
+      const errors = this.$refs.errors;
       if (files && files[0]) {
         if (files[0]['type'] === 'image/jpeg' || files[0]['type'] === 'image/jpg' || files[0]['type'] === 'image/png') {
           this.$emit('input', event.target.files[0]);
           this.$store.commit('setFile', event.target.files[0]);
         } else {
-          const errors = this.$refs.errors;
-          errors.text = 'Only JPG and PNG images are accecpted!';
+          this.$store.commit('setErrors', 'Only JPG and PNG images are accecpted!');
           errors.$el.classList.add('bubbleUp');
         }
       }
@@ -153,6 +159,7 @@ export default {
     background: $colorBlue;
     color: #fff;
     width: 60vw;
+    max-width: pxToRem(400);
     padding: pxToRem(10);
     font-size: pxToRem(12);
 

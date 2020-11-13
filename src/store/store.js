@@ -23,6 +23,7 @@ export const store = new Vuex.Store({
         height: 0
       },
       isImageLoaded: false,
+      errors: ``,
       controllers: [
         {
           name: `Brightness`,
@@ -79,6 +80,9 @@ export const store = new Vuex.Store({
     },
     getContrast (state) {
       return state.editor.contrast
+    },
+    getErrors (state) {
+      return state.editor.errors
     }
   },
   mutations: {
@@ -107,6 +111,9 @@ export const store = new Vuex.Store({
       state.editor.controllers.forEach((controller) => {
         controller.disabled = value;
       })
+    },
+    setErrors: function (state, value) {
+      state.editor.errors = value;
     }
   },
   actions: {
