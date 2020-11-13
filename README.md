@@ -2,11 +2,11 @@
 
 > This project is only for demostration of a simple Image Editor
 
->> Load and display an image file (png or jpg) from the filesystem
->> Once the image has been loaded, the horizontal brightness/contrast sliders become active
->> The user can adjust the brightness and contrast of the image, in real time, by moving the slider left or right from its centre position to decrease or increase brightness/contrast respectively. NOTE: By "real time" we mean as the slider is dragged, do not wait for a mouse up event to trigger the change in brightness or contrast, update it as the slider is dragged
->> Manipulating the pixel values directly.
->> When you adjust the brightness and then adjust the contrast, the contrast adjustment should be applied over the brightness adjustment.
+> Load and display an image file (png or jpg) from the filesystem
+> Once the image has been loaded, the horizontal brightness/contrast sliders become active
+> The user can adjust the brightness and contrast of the image, in real time, by moving the slider left or right from its centre position to decrease or increase brightness/contrast respectively. NOTE: By "real time" we mean as the slider is dragged, do not wait for a mouse up event to trigger the change in brightness or contrast, update it as the slider is dragged
+> Manipulating the pixel values directly.
+> When you adjust the brightness and then adjust the contrast, the contrast adjustment should be applied over the brightness adjustment.
 
 
 ## Build Setup
