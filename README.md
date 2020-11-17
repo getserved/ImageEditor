@@ -21,6 +21,7 @@
 ## Technologies
 Project is created with:
 * Vue 4.2.3
+* Vuex 3.1.3
 	
 ## Setup
 To run this project, install it locally using npm:
