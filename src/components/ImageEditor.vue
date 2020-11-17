@@ -177,7 +177,7 @@ export default {
   min-width: 300px;
 }
 .container{
-  max-width: pxToRem(600);
+  max-width: pxToRem(450);
   margin: auto auto;
   text-align: center;
   display: flex;
@@ -186,7 +186,7 @@ export default {
 }
 
 .canvasContainer{
-  max-width: pxToRem(600);
+  max-width: pxToRem(450);
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -236,10 +236,9 @@ export default {
      left: 0;
      width: 100%;
      height: 100%;
-     max-height: 195px;
      background-size: cover;
      background-position: center;
-     z-index: -1;
+
   }
 
   .profileContainer {
@@ -424,6 +423,11 @@ export default {
   }
 }
 
+@media only screen and (min-width: 400px) {
+  .container{
+    border: 1px solid $colorShadow;
+  }
+}
 @media only screen and (max-width: 450px) {
   .info{
     max-height: 25%;
