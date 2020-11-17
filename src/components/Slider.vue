@@ -58,8 +58,6 @@ export default {
       let max = e.target.max;
       this.setTrack(val, max);
       this.$store.dispatch(this.action, val);
-    },
-    setTrack (value, max) {
     }
   }
 }

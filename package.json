@@ -15,16 +15,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
-    "firebase": "^7.24.0",
-    "jquery": "^3.4.1",
     "sass-resources-loader": "^2.0.1",
-    "three": "^0.114.0",
-    "threejs-glsl-loader": "^1.0.4",
     "vue": "^2.6.11",
     "vue-resize-directive": "^1.2.0",
-    "vue-simple-svg": "^2.0.2",
     "vue-slider-component": "^3.1.1",
-    "vuewheel": "^2.1.6",
     "vuex": "^3.1.3",
     "vuex-map-fields": "^1.4.0"
   },
@@ -45,6 +39,9 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
+    "devDependencies": {
+      "execa": "latest"
+    },
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -92,11 +89,7 @@
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
-    "webpack-glsl-loader": "^1.0.1",
-    "webpack-merge": "^4.1.0",
-    "devDependencies": {
-      "execa": "latest"
-    }
+    "webpack-merge": "^4.1.0"
   },
   "engines": {
     "node": ">= 6.0.0",

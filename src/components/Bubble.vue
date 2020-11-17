@@ -20,19 +20,7 @@ export default {
 		isDefault: Boolean,
 		start: Number,
 		end: Number
-  },
-	ready: function () {
-
-	},
-  mounted: function () {
-
-  },
-	computed: {
-
-	},
-	methods: {
-
-	}
+  }
 };
 
 </script>
@@ -102,8 +90,5 @@ border-bottom: 12px solid #fff;
 left: 32px;
 top: -24px;
 }
-	@media only screen and (max-device-width: 1024px) and (orientation : portrait){
-
-	}
 
 </style>
