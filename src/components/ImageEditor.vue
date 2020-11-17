@@ -8,29 +8,28 @@
       <div class="info">
         <div class="background" :style="{ 'background-image': 'url(' + require('../assets/images/'+getBgImg) + ')'}"></div>
 
-        <div class="profile-container">
+        <div class="profileContainer">
           <div class="profile">
             <img :src="require('../assets/images/'+getProfile)"/>
           </div>
         </div>
       </div>
-      <div class="main-panel">
+      <div class="mainPanel">
         <div class="controlPanel">
-          <div class="slider-container" :key='k' v-for='(slider, k) in getControllers'>
-            <slider :name='slider.name' :description="slider.description" :action="slider.action" :min="slider.min" :max="slider.max" :step="slider.step" :disabled="slider.disabled" :color="slider.color" ></slider>
+          <div class="sliderContainer" :key='k' v-for='(slider, k) in getControllers'>
+            <slider ref="sliders" :name="slider.name" :description="slider.description" :value="slider.defaultValue" :defaultValue="slider.defaultValue" :action="slider.action" :min="slider.min" :max="slider.max" :step="slider.step" :disabled="slider.disabled" :color="slider.color" ></slider>
           </div>
         </div>
-        <div class="image-container">
-          <div ref="canvasContainer" class="canvas-container">
+        <div class="imageContainer">
+          <div ref="canvasContainer" class="canvasContainer">
             <canvas ref="canvas" class="canvas"></canvas>
           </div>
-          <div class="uploader-container">
+          <div class="uploaderContainer">
             <fileUploader v-model="file"></fileUploader>
             <button ref='uploadBtn' disabled class="uploadBtn" @click="onFileChange">
               <i class="icon"></i>
               <span>UPLOAD</span>
             </button>
-            <!--<input class="image-input" ref="fileInput" type="file" @change="onFileChange"/>-->
           </div>
         </div>
       </div>
@@ -92,6 +91,10 @@ export default {
     '$store.state.editor.file': function (newVal) {
       if (newVal) {
         this.$refs.uploadBtn.removeAttribute('disabled');
+        this.$refs.sliders.forEach(slider => {
+          slider.reset();
+        });
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       }
     }
   },
@@ -106,7 +109,7 @@ export default {
       this.ctx.putImageData(imageData, 0, 0);
     },
     setBrightness: function (data, value) {
-      for (var i = 0; i < data.length; i += 4) {
+      for (let i = 0; i < data.length; i += 4) {
         data[i] += 255 * (value / 100);
         data[i + 1] += 255 * (value / 100);
         data[i + 2] += 255 * (value / 100);
@@ -114,9 +117,9 @@ export default {
       return data;
     },
     setContrast: function (data, value) {
-      var factor = (259.0 * (value + 255.0)) / (255.0 * (259.0 - value));
+      const factor = (259.0 * (value + 255.0)) / (255.0 * (259.0 - value));
 
-      for (var i = 0; i < data.length; i += 4) {
+      for (let i = 0; i < data.length; i += 4) {
         data[i] = this.truncateColor(factor * (data[i] - 128.0) + 128.0);
         data[i + 1] = this.truncateColor(factor * (data[i + 1] - 128.0) + 128.0);
         data[i + 2] = this.truncateColor(factor * (data[i + 2] - 128.0) + 128.0);
@@ -167,7 +170,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .imageEditor{
   width: 100%;
@@ -183,12 +185,13 @@ export default {
   height: 100%;
 }
 
-.canvas-container{
+.canvasContainer{
   max-width: pxToRem(600);
   width: 100%;
   height: 100%;
   overflow: hidden;
-  flex: 0 1 80%;
+  flex: 0 1 85%;
+  max-height: pxToRem(212);
 }
 .canvas{
   border-top-left-radius: 5px;
@@ -201,17 +204,19 @@ export default {
 .header{
   background-color: $colorPurple;
   color: #fff;
-  padding: 1rem;
+  padding: pxToRem(12.5);
 
   h2{
     font-size: pxToRem(15);
     font-weight: 500;
-    margin: .5rem;
+    margin: 0;
+    line-height: pxToRem(25);
   }
 
   .subtitle{
     font-size: pxToRem(13);
-    font-weight: 300;
+    font-weight: 400;
+    line-height: pxToRem(20);
   }
 }
 .info{
@@ -231,19 +236,20 @@ export default {
      left: 0;
      width: 100%;
      height: 100%;
+     max-height: 195px;
      background-size: cover;
      background-position: center;
      z-index: -1;
   }
 
-  .profile-container {
-    width: pxToRem(64);
-    height: pxToRem(64);
+  .profileContainer {
+    width: pxToRem(56);
+    height: pxToRem(56);
     position: absolute;
     left: 50%;
-    bottom: -1rem;
+    bottom: pxToRem(-10);
     transform: translateX(-50%);
-    border: pxToRem(5) solid #fff;
+    border: pxToRem(2) solid #fff;
     border-radius: 50%;
     overflow: hidden;
 
@@ -259,8 +265,8 @@ export default {
     }
   }
 }
-.main-panel{
-  padding: 1rem;
+.mainPanel{
+  padding: pxToRem(17) pxToRem(20) pxToRem(20) pxToRem(20);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -271,42 +277,43 @@ export default {
   display: flex;
   flex-direction: column;
 
-  .slider-container{
-    box-shadow: 0 0 10px #ccc;
-    margin: .5rem 0;
+  .sliderContainer{
+    box-shadow: 0 0 10px $colorShadow;
+    margin-bottom: pxToRem(7);
     border-radius: 5px;
   }
 }
-.image-container{
-  flex: 1 1 40%;
+.imageContainer{
+  flex: 1 1 45%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
   height: auto;
-  border: 1px solid #ccc;
-  margin-top: 1rem;
+  max-height: pxToRem(266);
+  border: 1px solid $colorLighterGrey;
   border-radius: 5px;
 }
 
-.uploader-container{
+.uploaderContainer{
   display: flex;
   justify-content: space-between;
   flex-wrap: nowrap;
-  padding: .5rem;
-  margin-top: 1rem;
+  padding: 0 pxToRem(8);
+  margin-bottom: pxToRem(7);
   flex-spacing: 1rem;
 
   .fileUploader{
-    flex: 0 1 60%;
-    max-width: 60%;
+    flex: 0 1 70%;
     cursor: pointer;
   }
 
   .uploadBtn{
-    flex: 0 1 20%;
+    font-family: 'Graphik';
+    flex: 0 1 30%;
     flex-wrap: nowrap;
     white-space : nowrap;
+    max-width: pxToRem(87);
     display: inline-block;
     outline: none;
     border: 1px solid #ccc;
@@ -315,9 +322,11 @@ export default {
     color: $colorBlue;
     background-color: $colorGrey;
     font-size: pxToRem(11);
-    font-weight: bold;
+    font-weight: 500;
     line-height: pxToRem(11);
-    padding: .3rem 1rem;
+    line-height: pxToRem(25);
+    max-width: pxToRem(87);
+    letter-spacing: pxToRem(0.545);
     cursor: pointer;
 
     &[disabled]{
@@ -328,8 +337,9 @@ export default {
 
     .icon{
       display: inline-block;
-      width: pxToRem(11);
-      height: pxToRem(11);
+      width: pxToRem(10);
+      height: pxToRem(10);
+      margin-bottom: -1px;
       background-image: url(../assets/images/Triangle.png);
       background-size: contain;
       background-repeat: no-repeat;

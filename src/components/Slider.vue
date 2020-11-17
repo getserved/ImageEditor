@@ -15,7 +15,7 @@
         :step="step"
         :defaultValue="defaultValue"
         v-model="barValue"
-        :style="{ '--color': color, background: 'linear-gradient(to right, ' + color + ', ' + color + ' ' + percent + '%, ' + color + '55 ' + (percent+0.01) + '%, ' + color + '55)'}"
+        :style="{ '--color': color, background: 'linear-gradient(to right, ' + colored + ', ' + colored + ' ' + percent + '%, ' + colored + '55 ' + (percent+0.01) + '%, ' + colored + '55)'}"
       />
     </div>
     <div class="description">
@@ -48,16 +48,27 @@ export default {
       if (this.barValue) {
         return ((this.barValue - this.min) / (this.max - this.min)) * 100;
       } else {
-        return 50;
+        return ((this.defaultValue - this.min) / (this.max - this.min)) * 100;
+      }
+    },
+    colored: function () {
+      if (this.disabled) {
+        return '#cccccc';
+      } else {
+        return this.color;
       }
     }
   },
   methods: {
     barChange: function (e) {
       let val = e.target.value;
-      let max = e.target.max;
-      this.setTrack(val, max);
       this.$store.dispatch(this.action, val);
+    },
+    reset: function () {
+      this.$refs.slider.value = this.defaultValue;
+      const defaultValue = this.defaultValue;
+      this.barValue = defaultValue;
+      this.$store.commit('setControllerDisabled', true);
     }
   }
 }
@@ -65,27 +76,32 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+
 .slider{
-  padding: .5rem;
+  padding-top: pxToRem(6);
 }
 .title{
   font-size: pxToRem(18);
   font-weight: 500;
   margin: 0;
+  line-height: pxToRem(25);
 }
 .description{
   font-size: pxToRem(13);
-  color: $colorDarkGrey;
+  font-weight: 400;
+  line-height: pxToRem(25);
+  color: $colorDarkBlue;
 }
 .slide{
-  padding: .5rem;
+  padding: pxToRem(7) 0;
 }
 .input{
   width: 100%;
 }
 input[type=range] {
   -webkit-appearance: none;
-  width: 90%;
+  width: 95%;
+  max-width: pxToRem(295);
   border-radius: 10px;
   outline: none;
 }
@@ -94,16 +110,13 @@ input[type=range]::-webkit-slider-thumb {
 }
 input[type=range]::-webkit-slider-runnable-track {
   height: pxToRem(5);
-  border-radius: 10px;
 }
-input[type=range][disabled]::-webkit-slider-runnable-track {
-  background: linear-gradient(to right, #ccc, #ccc 50%, #eee 50.01%, #eee);
-}
+
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: pxToRem(25);
-  width: pxToRem(25);
-  margin-top: pxToRem(-10);
+  height: pxToRem(21);
+  width: pxToRem(21);
+  margin-top: pxToRem(-8);
   background: var(--color);
   border-radius: 50%;
   border: solid 3px #fff;

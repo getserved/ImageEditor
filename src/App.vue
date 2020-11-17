@@ -66,9 +66,10 @@ html, #app{
 }
 body {
   height: 100%;
+  margin: 0;
 }
 
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 374px) {
   html, #app{
     font-size: 12px;
   }

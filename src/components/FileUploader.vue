@@ -16,7 +16,7 @@
       </div>
     </div>
     <input class="input" type="file" @change="onFileChange" @click="removeErrors"/>
-    <bubble ref="errors" bubbleClass='bubble-bottom-left' :text="getErrors" class='errors'></bubble>
+    <bubble ref="errors" bubbleClass='bubbleBottomLeft' :text="getErrors" class='errors'></bubble>
   </label>
 </template>
 
@@ -58,19 +58,18 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .fileUploader{
   position: relative;
   display: inline-block;
   display: flex;
   flex-wrap: nowrap;
-  max-width: 70%;
+  max-width: pxToRem(207);
   height: pxTorem(28);
   line-height: pxToRem(28);
 }
 .selectBtn{
-  border: 1px solid #ccc;
+  border: 1px solid $colorLighterGrey;
   border-radius: 5px;
   display: flex;
   justify-content: flex-start;
@@ -93,8 +92,8 @@ export default {
 
     span{
       display: inline-block;
-      margin: .2rem 1rem;
       vertical-align: middle;
+      line-height: pxToRem(25);
     }
 
     &.select{
@@ -106,22 +105,25 @@ export default {
     &.name{
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-      border-right: 1px solid #ccc;
+      border-right: 1px solid $colorLighterGrey;
       background-color: $colorGrey;
       color: $colorDarkGrey;
       cursor: pointer;
-      flex: 0 0 0%;
-      max-width: 70%;
+      flex: 1 1 0%;
+      width: 30%;
+      max-width: pxToRem(59);
+      letter-spacing: pxToRem(1.1);
     }
 
     &.fileName{
       color: $colorGreen;
-      max-width: 70%;
+      width: 70%;
+      max-width: pxToRem(147);
       min-width: 50%;
       flex: 1 0 0%;
+      letter-spacing: pxToRem(1.1);
 
       span{
-        margin: .2rem 0;
         max-width: 90%;
         display: inline-block;
         overflow : hidden;
@@ -154,11 +156,13 @@ export default {
   margin-top: -2rem;
   transform: translate(0, -100%);
   opacity: 0;
+  visibility: hidden;
+  display: none;
 
   /deep/ .bubble{
     background: $colorBlue;
     color: #fff;
-    width: 60vw;
+    width: 75vw;
     max-width: pxToRem(400);
     padding: pxToRem(10);
     font-size: pxToRem(12);
@@ -172,12 +176,14 @@ export default {
   }
 }
 .bubbleUp{
+  display: block;
   animation: bubbleUp 5s ease-in-out;
 }
 
 @keyframes bubbleUp{
   0%{
     visibility: visible;
+
     opacity: 0;
   }
   20%{
@@ -191,6 +197,7 @@ export default {
   }
   100%{
     visibility: hidden;
+    display: none;
     opacity: 0;
   }
 }

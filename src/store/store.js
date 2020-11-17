@@ -15,7 +15,6 @@ export const store = new Vuex.Store({
       ctx: '',
       brightness: 0,
       contrast: 0,
-      originalImageData: ``,
       img: ``,
       image: {
         url: ``,
@@ -41,7 +40,7 @@ export const store = new Vuex.Store({
         {
           name: `Contrast`,
           action: `setContrast`,
-          description: `Slide to adjust image contrast!🌓`,
+          description: `Slide to adjust image contrast! 🌓`,
           min: -100,
           max: 100,
           step: 1,
@@ -72,9 +71,6 @@ export const store = new Vuex.Store({
     getControllers (state) {
       return state.editor.controllers
     },
-    getOriginalImageData (state) {
-      return state.editor.originalImageData
-    },
     getBrightness (state) {
       return state.editor.brightness
     },
@@ -97,9 +93,6 @@ export const store = new Vuex.Store({
     },
     setImage: function (state, value) {
       state.editor.img = value;
-    },
-    setOriginalImageData: function (state, value) {
-      state.editor.originalImageData = value;
     },
     setBrightness: function (state, value) {
       state.editor.brightness = value;

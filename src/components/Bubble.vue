@@ -29,9 +29,9 @@ export default {
 .bubble {
 position: relative;
 font-family: sans-serif;
-font-size: 18px;
+font-size: pxToRem(15);
 line-height: 24px;
-width: 300px;
+width: pxToRem(300);
 background: #fff;
 border-radius: 40px;
 padding: 24px;
@@ -39,7 +39,7 @@ text-align: center;
 color: #000;
 }
 
-.bubble-bottom-left:before {
+.bubbleBottomLeft:before {
 content: "";
 width: 0px;
 height: 0px;
@@ -52,7 +52,7 @@ left: 32px;
 bottom: -24px;
 }
 
-.bubble-bottom-right:before {
+.bubbleBottomRight:before {
 content: "";
 width: 0px;
 height: 0px;
@@ -65,7 +65,7 @@ right: 32px;
 bottom: -24px;
 }
 
-.bubble-top-right:before {
+.bubbleTopRight:before {
 content: "";
 width: 0px;
 height: 0px;
@@ -78,7 +78,7 @@ right: 32px;
 top: -24px;
 }
 
-.bubble-top-left:before {
+.bubbleTopLeft:before {
 content: "";
 width: 0px;
 height: 0px;
