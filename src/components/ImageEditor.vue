@@ -162,7 +162,6 @@ export default {
           vm.draw();
           vm.isImageLoaded = true;
           vm.$store.dispatch(`activateControllers`);
-          vm.$store.commit(`setOriginalImageData`, vm.ctx.getImageData(0, 0, vm.canvas.width, vm.canvas.height));
         }
       }
     }

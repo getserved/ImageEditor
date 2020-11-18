@@ -67,8 +67,23 @@ export default {
     reset: function () {
       this.$refs.slider.value = this.defaultValue;
       const defaultValue = this.defaultValue;
-      this.barValue = defaultValue;
+      this.smoothTransit(500, defaultValue);
       this.$store.commit('setControllerDisabled', true);
+    },
+    smoothTransit: function (time, value) {
+      const distance = value - this.barValue;
+      if (distance !== 0) {
+        const timer = Math.abs(time / distance);
+        const step = (distance > 0) ? 1 : -1;
+
+        var intID = setInterval(() => {
+          if (this.barValue !== value) {
+            this.barValue = Number(this.barValue) + step;
+          } else {
+            clearInterval(intID);
+          }
+        }, timer);
+      }
     }
   }
 }
